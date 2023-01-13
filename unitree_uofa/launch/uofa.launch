@@ -1,0 +1,20 @@
+<launch>
+    
+    <arg name="ctrl_level" default="highlevel"/>
+
+    <param name="control_level" type="string" value="$(arg ctrl_level)"/>
+    <param name="do_the_thing" type="int" value="1"/>
+
+    <!-- ROS node for UDP message communications -->
+    <node pkg="unitree_legged_real" type="ros_udp" name="node_ros_udp" output="screen" args="$(arg ctrl_level)"/>
+    
+    <!-- ROS node to listen to joystick commands -->
+    <node pkg="unitree_uofa" type="joystick_listener" name="joystick_listener" output="screen"/>
+ 
+     <!-- ROS node to detect green balls -->
+    <node pkg="unitree_uofa" type="green_ball" name="green_ball" output="screen"/>
+
+    <!-- ROS node to generate movement commands -->
+    <node pkg="unitree_uofa" type="movement" name="movement" output="screen"/>
+
+</launch>
